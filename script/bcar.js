@@ -92,90 +92,92 @@ var bcModSDK = function () { "use strict"; const o = "1.2.0"; function e(o) { al
 
   const getWingVerb = () => ["FairyWings", "BeeWings", "PixieWings"].includes(InventoryGet(Player, "Wings")?.Asset?.Name) ? "flutters" : "flaps";
 
-  function BCARChatRoomClick() {
-    modApi.hookFunction('ChatRoomClick', 4, (args, next) => {
-      if (Player.BCAR.bcarSettings.earWigglingEnable) {
-        if (Player.BCAR.bcarSettings.animationButtonsEnable) {
-          if (((Player.BCAR.bcarSettings.animationButtonsPosition === "upperleft")
-            && ((MouseX >= 0) && (MouseX < 45) && (MouseY >= 135) && (MouseY < 180)))
-            || ((Player.BCAR.bcarSettings.animationButtonsPosition === "lowerleft")
-              && ((MouseX >= 0) && (MouseX < 45) && (MouseY >= 860) && (MouseY < 905)))
-            || ((Player.BCAR.bcarSettings.animationButtonsPosition === "lowerright")
-              && ((MouseX >= 955) && (MouseX < 1005) && (MouseY >= 860) && (MouseY < 905)))) {
-            ServerSend("ChatRoomChat", {
-              Content: "Beep",
-              Type: "Action",
-              Target: null,
-              Dictionary: [
-                { Tag: "Beep", Text: "msg" },
-                { Tag: "Biep", Text: "msg" },
-                { Tag: "Sonner", Text: "msg" },
-                { Tag: "msg", Text: CharacterNickname(Player) + " wiggles " + Player.BCAR.bcarSettings.genderDefault.capPossessive.toLocaleLowerCase() + " ears." }
-              ]
-            });
-            EarWiggle();
-            return;
-            /**
-            {
-                BCARTriggerEarWiggleAction()
-                EarWiggle();
-                return;
+    function BCARChatRoomClick() {
+        modApi.hookFunction('ChatRoomClick', 4, (args, next) => {
+            if (Player.BCAR.bcarSettings.earWigglingEnable) {
+                if (Player.BCAR.bcarSettings.animationButtonsEnable) {
+                    if (((Player.BCAR.bcarSettings.animationButtonsPosition === "upperleft")
+                            && ((MouseX >= 0) && (MouseX < 45) && (MouseY >= 135) && (MouseY < 180)))
+                        || ((Player.BCAR.bcarSettings.animationButtonsPosition === "lowerleft")
+                            && ((MouseX >= 0) && (MouseX < 45) && (MouseY >= 860) && (MouseY < 905)))
+                        || ((Player.BCAR.bcarSettings.animationButtonsPosition === "lowerright")
+                            && ((MouseX >= 955) && (MouseX < 1005) && (MouseY >= 860) && (MouseY < 905)))) {
+                        ServerSend("ChatRoomChat", {
+                                Content: "Beep",
+                                Type: "Action",
+                                Target: null,
+                                Dictionary: [
+                                    { Tag: "Beep", Text: "msg" },
+                                    { Tag: "Biep", Text: "msg" },
+                                    { Tag: "Sonner", Text: "msg" },
+                                    // { Tag: "msg", Text: CharacterNickname(Player) + " wiggles " + Player.BCAR.bcarSettings.genderDefault.capPossessive.toLocaleLowerCase() + " ears." }
+                                    { Tag: "msg", Text: CharacterNickname(Player) + " 摇晃她的耳朵。"}
+                                ]
+                            });
+                            EarWiggle();
+                            return;
+                    /**
+                    {
+                        BCARTriggerEarWiggleAction()
+                        EarWiggle();
+                        return;
+                    }
+                      */
+                    }
+                }
             }
-              */
-          }
-        }
-      }
-      if (Player.BCAR.bcarSettings.tailWaggingEnable) {
-        if (Player.BCAR.bcarSettings.animationButtonsEnable) {
-          if (((Player.BCAR.bcarSettings.animationButtonsPosition === "upperleft")
-            && ((MouseX >= 0) && (MouseX < 45) && (MouseY >= 180) && (MouseY < 225)))
-            || ((Player.BCAR.bcarSettings.animationButtonsPosition === "lowerleft")
-              && ((MouseX >= 0) && (MouseX < 45) && (MouseY >= 905) && (MouseY < 950)))
-            || ((Player.BCAR.bcarSettings.animationButtonsPosition === "lowerright")
-              && ((MouseX >= 955) && (MouseX < 1005) && (MouseY >= 905) && (MouseY < 950)))) {
-            ServerSend("ChatRoomChat", {
-              Content: "Beep",
-              Type: "Action",
-              Target: null,
-              Dictionary: [
-                { Tag: "Beep", Text: "msg" },
-                { Tag: "Biep", Text: "msg" },
-                { Tag: "Sonner", Text: "msg" },
-                { Tag: "msg", Text: CharacterNickname(Player) + " wags " + Player.BCAR.bcarSettings.genderDefault.capPossessive.toLocaleLowerCase() + " tail." }
-              ]
-            });
-            TailWag();
-            return;
-          }
-        }
-      }
-      if (Player.BCAR.bcarSettings.wingFlappingEnable) {
-        if (Player.BCAR.bcarSettings.animationButtonsEnable) {
-          if (((Player.BCAR.bcarSettings.animationButtonsPosition === "upperleft")
-            && ((MouseX >= 0) && (MouseX < 45) && (MouseY >= 225) && (MouseY < 270)))
-            || ((Player.BCAR.bcarSettings.animationButtonsPosition === "lowerleft")
-              && ((MouseX >= 0) && (MouseX < 45) && (MouseY >= 950) && (MouseY < 995)))
-            || ((Player.BCAR.bcarSettings.animationButtonsPosition === "lowerright")
-              && ((MouseX >= 955) && (MouseX < 1005) && (MouseY >= 950) && (MouseY < 995)))) {
-            ServerSend("ChatRoomChat", {
-              Content: "Beep",
-              Type: "Action",
-              Target: null,
-              Dictionary: [
-                { Tag: "Beep", Text: "msg" },
-                { Tag: "Biep", Text: "msg" },
-                { Tag: "Sonner", Text: "msg" },
-                { Tag: "msg", Text: CharacterNickname(Player) + " " + getWingVerb() + " " + Player.BCAR.bcarSettings.genderDefault.capPossessive.toLocaleLowerCase() + " wings." }
-              ]
-            });
-            WingFlap();
-            return;
-          }
-        }
-      }
-      next(args);
-    });
-  }
+            if (Player.BCAR.bcarSettings.tailWaggingEnable) {
+                if (Player.BCAR.bcarSettings.animationButtonsEnable) {
+                    if (((Player.BCAR.bcarSettings.animationButtonsPosition === "upperleft")
+                            && ((MouseX >= 0) && (MouseX < 45) && (MouseY >= 180) && (MouseY < 225)))
+                        || ((Player.BCAR.bcarSettings.animationButtonsPosition === "lowerleft")
+                            && ((MouseX >= 0) && (MouseX < 45) && (MouseY >= 905) && (MouseY < 950)))
+                        || ((Player.BCAR.bcarSettings.animationButtonsPosition === "lowerright")
+                            && ((MouseX >= 955) && (MouseX < 1005) && (MouseY >= 905) && (MouseY < 950)))) {
+                        ServerSend("ChatRoomChat", {
+                            Content: "Beep",
+                            Type: "Action",
+                            Target: null,
+                            Dictionary: [
+                                { Tag: "Beep", Text: "msg" },
+                                { Tag: "Biep", Text: "msg" },
+                                { Tag: "Sonner", Text: "msg" },
+                                // { Tag: "msg", Text: CharacterNickname(Player) + " wags " + Player.BCAR.bcarSettings.genderDefault.capPossessive.toLocaleLowerCase() + " tail." }
+                                { Tag: "msg", Text: CharacterNickname(Player) + " 摇晃她的尾巴。"}
+                            ]
+                        });
+                        TailWag();
+                        return;
+                    }
+                }
+            }
+            if (Player.BCAR.bcarSettings.wingFlappingEnable) {
+                if (Player.BCAR.bcarSettings.animationButtonsEnable) {
+                    if (((Player.BCAR.bcarSettings.animationButtonsPosition === "upperleft")
+                            && ((MouseX >= 0) && (MouseX < 45) && (MouseY >= 225) && (MouseY < 270)))
+                        || ((Player.BCAR.bcarSettings.animationButtonsPosition === "lowerleft")
+                            && ((MouseX >= 0) && (MouseX < 45) && (MouseY >= 950) && (MouseY < 995)))
+                        || ((Player.BCAR.bcarSettings.animationButtonsPosition === "lowerright")
+                            && ((MouseX >= 955) && (MouseX < 1005) && (MouseY >= 950) && (MouseY < 995)))) {
+                        ServerSend("ChatRoomChat", {
+                            Content: "Beep",
+                            Type: "Action",
+                            Target: null,
+                            Dictionary: [
+                                { Tag: "Beep", Text: "msg" },
+                                { Tag: "Biep", Text: "msg" },
+                                { Tag: "Sonner", Text: "msg" },
+                                { Tag: "msg", Text: CharacterNickname(Player) + " " + getWingVerb() + " " + Player.BCAR.bcarSettings.genderDefault.capPossessive.toLocaleLowerCase() + " wings." }
+                            ]
+                        });
+                        WingFlap();
+                        return;
+                    }
+                }
+            }
+            next(args);
+        });
+    }
 
   async function BCARChatRoomMenuDraw() {
     modApi.hookFunction('ChatRoomMenuDraw', 4, (args, next) => {
