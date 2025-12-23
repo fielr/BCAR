@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 100
 
       - name: Upstream Sync
         uses: imba-tjd/rebase-upstream-action@0.12
